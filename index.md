@@ -203,7 +203,7 @@ Voorbeeldstraat 12\
 <!-- Een klein script in een [html]-blok: laat zien of de studio nu open is. -->
 <p class="open-nu" id="open-nu" aria-live="polite"></p>
 <style>
-  .open-nu { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .8rem; border-radius: 999px; font-size: .9rem; font-weight: 600;
+  .open-nu { display: inline-flex; align-items: center; gap: .5rem; padding: .35rem .8rem; border-radius: calc(var(--rond) / 2); font-size: .9rem; font-weight: 600;
              background: color-mix(in srgb, var(--tekst) 10%, transparent); }
   .open-nu::before { content: ''; width: .55rem; height: .55rem; border-radius: 50%; background: var(--stip, #999); }
 </style>
@@ -239,7 +239,7 @@ Voorbeeldstraat 12\
   .formulier > * { margin: 0; }
   /* Zelfde vorm als een .knop uit de markdown (die is alleen voor links) */
   .formulier button { justify-self: start; border: 0; cursor: pointer; font: 600 .95rem var(--font-tekst), system-ui, sans-serif;
-                      padding: .6rem 1.1rem; border-radius: 6px; background: var(--accent); color: var(--knoptekst); }
+                      padding: .6rem 1.1rem; border-radius: calc(var(--rond) / 2); background: var(--accent); color: var(--knoptekst); }
   @media (hover: hover) { .formulier button:hover { filter: brightness(.92); } }
 </style>
 <form class="formulier kaart" action="mailto:hallo@studiolumen.example" method="post" enctype="text/plain">

@@ -111,6 +111,12 @@
 .sk-sectiehart svg { width: 16px; height: 16px; }
 .sk-sectiehart[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--knoptekst) !important; }
 
+/* Hoeken: alles op de site volgt --rond (de keuze "Hoeken").
+   Kaarten en afbeeldingen krijgen --rond zelf (styles.css), knoppen en velden de helft:
+   bij de standaard 12px is dat 6px, net als in styles.css. Het paneel (.sk) houdt zijn eigen vorm. */
+a.knop, .menubalk nav a,
+.sk-sectiehart, .sk-overzicht :is(.sk-kies, .sk-segment button, input:not([type="checkbox"]), textarea) { border-radius: calc(var(--rond) / 2); }
+
 /* Hartjes algemeen */
 :is(.sk-hart, .sk-sectiehart) svg path { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
 :is(.sk-hart, .sk-sectiehart)[aria-pressed="true"] svg path { fill: currentColor; }
@@ -210,7 +216,7 @@
 
 /* script.js maakt van [tekst](adres){.knop} een link; deze knoppen zijn <button>, met dezelfde vorm */
 button.knop {
-    display: inline-block; padding: .45rem .9rem; border: 0; border-radius: 6px; cursor: pointer;
+    display: inline-block; padding: .45rem .9rem; border: 0; border-radius: calc(var(--rond) / 2); cursor: pointer;
     background: var(--accent); color: var(--knoptekst); font: 600 .95rem var(--font-tekst), system-ui, sans-serif;
 }
 @media (hover: hover) { button.knop:hover { filter: brightness(.92); } }

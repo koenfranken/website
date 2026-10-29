@@ -490,6 +490,7 @@ function werkBij() {
     if (notitie && notitie !== document.activeElement) notitie.value = st.notitie;
     // Logo's met de eerste letter of het kopfont tekenen we opnieuw
     document.querySelectorAll('.sk-logo[data-id="monogram"] svg, .sk-optie[data-id="monogram"] svg').forEach(svg => {
+        if (svg.closest('.sk-hart')) return; // het hartje is geen logo
         svg.innerHTML = tekenMerk(logo('monogram'), svg.closest('.sk-klein') ? varKleurenOpDonker : varKleuren);
     });
     document.querySelectorAll('.sk-r-logo [style*="font-family"]').forEach(e => e.style.fontFamily = fontStapel(font()));
