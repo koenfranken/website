@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60">
+  <!-- Ringen rond een middelpunt; kleine ringen op de hoeken sluiten aan op de buurtegels -->
+  <g fill="none" stroke="#000" stroke-width="1.2">
+    <circle cx="30" cy="30" r="6"/><circle cx="30" cy="30" r="14"/><circle cx="30" cy="30" r="22"/>
+    <circle cx="0" cy="0" r="6"/><circle cx="60" cy="0" r="6"/><circle cx="0" cy="60" r="6"/><circle cx="60" cy="60" r="6"/>
+  </g>
+</svg>

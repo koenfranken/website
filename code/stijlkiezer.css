@@ -1,0 +1,219 @@
+/* ─── Stijlkiezer ───────────────────────────────────────────
+   Hoort bij stijlkiezer.js. Het paneel en de knop (.sk) hebben vaste, neutrale kleuren:
+   ze moeten leesbaar blijven bij elk palet. Het overzicht op stijl.html (.sk-overzicht)
+   gebruikt juist de kleuren van de site, zodat het er als een deel van de site uitziet. */
+
+.sk {
+    --sk-bg: #FFFFFF;
+    --sk-fg: #1D1D1F;
+    --sk-zacht: #6A6A70;
+    --sk-lijn: #E3E3E6;
+    --sk-vlak: #F4F4F6;
+    --sk-aan: #1D1D1F;
+    font: 400 .9rem/1.45 system-ui, -apple-system, 'Segoe UI', sans-serif;
+    color: var(--sk-fg);
+}
+.sk button { font: inherit; color: inherit; }
+.sk :focus-visible { outline: 2px solid #2F6FEB; outline-offset: 2px; }
+
+/* Knop rechtsonder */
+.sk-open {
+    position: fixed; right: 16px; bottom: 16px; z-index: 210;
+    display: inline-flex; align-items: center; gap: .5rem;
+    padding: .7rem 1.1rem .7rem .9rem; border: 0; border-radius: 999px; cursor: pointer;
+    background: var(--sk-aan); color: #fff; font-weight: 600;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .25);
+}
+.sk-open svg { width: 20px; height: 20px; fill: #fff; }
+.sk-open svg circle { fill: var(--sk-aan); }
+@media (hover: hover) { .sk-open:hover { transform: translateY(-1px); } }
+
+/* Paneel */
+.sk-paneel {
+    position: fixed; right: 16px; bottom: 76px; z-index: 210;
+    width: min(380px, calc(100vw - 32px)); max-height: min(640px, calc(100dvh - 100px));
+    display: flex; flex-direction: column;
+    background: var(--sk-bg); border: 1px solid var(--sk-lijn); border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, .28);
+    overflow: hidden;
+}
+.sk-paneel[hidden] { display: none; }
+.sk-paneel header { display: flex; justify-content: space-between; align-items: start; gap: 1rem; padding: 1rem 1rem .5rem; }
+.sk-paneel header strong { display: block; font-size: 1rem; }
+.sk-paneel header span { color: var(--sk-zacht); font-size: .82rem; }
+.sk-sluit { border: 0; background: none; cursor: pointer; font-size: 1.5rem !important; line-height: 1; padding: 0 .25rem; color: var(--sk-zacht) !important; }
+.sk-tabs { display: flex; gap: .25rem; padding: 0 1rem .5rem; border-bottom: 1px solid var(--sk-lijn); }
+.sk-tabs button { flex: 1; border: 0; background: none; padding: .45rem 0; border-radius: 8px; cursor: pointer; color: var(--sk-zacht); font-weight: 600; }
+.sk-tabs [aria-selected="true"] { background: var(--sk-vlak); color: var(--sk-fg); }
+.sk-tabinhoud { overflow-y: auto; padding: .75rem 1rem 1rem; overscroll-behavior: contain; }
+.sk-tabinhoud > div { display: grid; gap: .4rem; }
+.sk-tabinhoud > div[hidden] { display: none; }
+.sk-paneel footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: .75rem 1rem; border-top: 1px solid var(--sk-lijn); background: var(--sk-vlak); }
+.sk-paneel footer a { color: var(--sk-fg); font-weight: 600; text-decoration: none; }
+.sk-herstel { border: 1px solid var(--sk-lijn); background: var(--sk-bg); border-radius: 999px; padding: .3rem .8rem; cursor: pointer; }
+
+/* Een regel in de lijst: palet of letters */
+.sk-rij {
+    display: flex; align-items: center; gap: .75rem; width: 100%; text-align: left;
+    padding: .5rem .6rem; border: 1.5px solid transparent; border-radius: 10px; background: none; cursor: pointer;
+}
+.sk-rij:hover { background: var(--sk-vlak); }
+.sk-rij[aria-pressed="true"] { border-color: var(--sk-aan); background: var(--sk-vlak); }
+.sk-rij b { display: block; font-weight: 600; line-height: 1.25; }
+.sk-rij small { display: block; color: var(--sk-zacht); font-size: .78rem; line-height: 1.35; }
+.sk-strook { flex: none; display: grid; grid-template-columns: repeat(3, 14px); gap: 2px; }
+.sk-strook i { width: 14px; height: 14px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+.sk-aa { flex: none; width: 48px; font-size: 1.7rem; line-height: 1; text-align: center; }
+
+/* Logo's in het paneel */
+.sk-logos { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+.sk-logo {
+    display: grid; justify-items: center; gap: .3rem; padding: .6rem .2rem .45rem;
+    border: 1.5px solid var(--sk-lijn); border-radius: 10px; background: var(--kleur-licht); cursor: pointer;
+}
+.sk-logo svg { width: 40px; height: 40px; }
+.sk-logo .sk-aa { height: 40px; display: grid; place-items: center; color: var(--kleur-primair); font-family: var(--font-koppen); }
+.sk-logo small { font-size: .68rem; color: var(--kleur-donker); opacity: .8; }
+.sk-logo[aria-pressed="true"] { border-color: var(--sk-aan); box-shadow: 0 0 0 1.5px var(--sk-aan); }
+.sk-naamveld { display: grid; gap: .3rem; font-weight: 600; font-size: .85rem; margin-bottom: .5rem; }
+.sk-naamveld :is(input, textarea) {
+    font: 400 16px/1.4 inherit; font-family: inherit; color: inherit; width: 100%;
+    padding: .55rem .7rem; border-radius: 8px; border: 1.5px solid color-mix(in srgb, currentColor 22%, transparent); background: transparent;
+}
+
+/* Segmentknoppen: hoeken, ruimte, beweging, achtergrond */
+.sk-segment { border: 0; padding: 0; margin: .5rem 0 0; min-width: 0; }
+.sk-segment legend { font-weight: 600; font-size: .85rem; margin-bottom: .35rem; padding: 0; }
+.sk-segment { display: flex; flex-wrap: wrap; gap: .3rem; }
+.sk-segment legend { width: 100%; }
+.sk-segment button {
+    flex: 1 1 auto; padding: .45rem .7rem; border-radius: 8px; cursor: pointer;
+    border: 1.5px solid color-mix(in srgb, currentColor 18%, transparent); background: none;
+}
+.sk-segment button[aria-pressed="true"] { background: var(--sk-aan, var(--accent)); border-color: var(--sk-aan, var(--accent)); color: var(--sk-bg, var(--knoptekst)); }
+
+/* Melding na het openen van een gedeelde link */
+.sk-gedeeld {
+    position: fixed; left: 50%; bottom: 24px; z-index: 220; transform: translateX(-50%);
+    max-width: calc(100vw - 32px); padding: .7rem 1.1rem; border-radius: 12px;
+    background: var(--sk-aan); color: #fff; box-shadow: 0 8px 30px rgba(0, 0, 0, .25);
+}
+
+/* Hartje per sectie (data-hartjes): in de bovenmarge van de sectie, rechts */
+.sk-met-hart:not(.plakt) { position: relative; }
+.sk-sectiehart {
+    position: absolute; right: 0; top: calc(-1 * var(--ruimte) + .6rem); z-index: 2;
+    display: inline-flex; align-items: center; gap: .3rem; padding: .25rem .7rem .25rem .5rem;
+    border: 1px solid color-mix(in srgb, var(--tekst) 25%, transparent); border-radius: 999px; cursor: pointer;
+    background: color-mix(in srgb, var(--achtergrond) 85%, transparent); color: var(--tekst) !important; font-size: .78rem; font-weight: 600;
+}
+.plakt > .sk-sectiehart { top: -2.4rem; }
+.sk-sectiehart svg { width: 16px; height: 16px; }
+.sk-sectiehart[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--knoptekst) !important; }
+
+/* Hartjes algemeen */
+:is(.sk-hart, .sk-sectiehart) svg path { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; }
+:is(.sk-hart, .sk-sectiehart)[aria-pressed="true"] svg path { fill: currentColor; }
+
+
+/* ─── Overzicht op stijl.html ───────────────────────────── */
+.sk-overzicht { display: grid; gap: clamp(3rem, 7vw, 5rem); }
+.sk-overzicht button { font: inherit; color: inherit; }
+.sk-blok { display: grid; gap: 1rem; scroll-margin-top: calc(var(--menu-h) + 1rem); }
+.sk-blok > h2 { margin-top: -.25rem; }
+.sk-uitleg { max-width: 65ch; }
+.sk-raster { display: grid; gap: 1.25rem; margin-top: .75rem; }
+.sk-r-palet { grid-template-columns: repeat(auto-fill, minmax(min(270px, 100%), 1fr)); }
+.sk-r-font { grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr)); }
+.sk-r-logo { grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr)); }
+.sk-r-patroon { grid-template-columns: repeat(auto-fill, minmax(min(170px, 100%), 1fr)); }
+
+.sk-optie {
+    display: flex; flex-direction: column; min-width: 0; overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--tekst) 14%, transparent); border-radius: var(--rond);
+    background: color-mix(in srgb, var(--achtergrond), var(--tekst) 4%);
+    transition: box-shadow .2s, border-color .2s;
+}
+.sk-optie.sk-gekozen { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.sk-voet { display: flex; align-items: center; gap: .6rem; margin-top: auto; padding: .8rem .9rem; border-top: 1px solid color-mix(in srgb, var(--tekst) 12%, transparent); }
+.sk-meta { flex: 1; min-width: 0; }
+.sk-code { font-size: .7rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.sk-naam { font-weight: 600; line-height: 1.3; }
+.sk-idee { font-size: .85rem; line-height: 1.4; color: color-mix(in srgb, var(--tekst) 72%, var(--achtergrond)); }
+.sk-kies {
+    flex: none; padding: .35rem .9rem; border-radius: 999px; cursor: pointer; font-size: .85rem !important; font-weight: 600;
+    border: 1.5px solid color-mix(in srgb, var(--tekst) 25%, transparent); background: none;
+}
+.sk-kies[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--knoptekst) !important; }
+.sk-hart { flex: none; border: 0; background: none; cursor: pointer; padding: .25rem; line-height: 0; color: color-mix(in srgb, var(--tekst) 55%, transparent) !important; }
+.sk-hart svg { width: 22px; height: 22px; }
+.sk-hart[aria-pressed="true"] { color: #D2394E !important; }
+
+/* Paletkaart: vlakken en een mini-website in dat palet */
+.sk-vlakken { display: grid; grid-template-columns: repeat(6, 1fr); height: 84px; }
+.sk-vlakken div { display: flex; flex-direction: column; justify-content: end; padding: .35rem; font-size: .56rem; line-height: 1.2; letter-spacing: .02em; overflow: hidden; }
+.sk-mini { background: var(--kleur-licht); color: var(--kleur-donker); padding-bottom: 0; font-family: var(--font-tekst), sans-serif; }
+.sk-mini-balk { display: flex; align-items: center; gap: .4rem; padding: .55rem .75rem; border-bottom: 1px solid color-mix(in srgb, var(--kleur-donker) 10%, transparent); }
+.sk-mini-balk i { width: 14px; height: 14px; border-radius: 50%; background: var(--kleur-primair); margin-right: auto; }
+.sk-mini-balk span { width: 22px; height: 4px; border-radius: 2px; background: color-mix(in srgb, var(--kleur-donker) 35%, transparent); }
+.sk-mini-balk b { width: 30px; height: 12px; border-radius: 4px; background: var(--kleur-primair); }
+.sk-mini-held { display: grid; grid-template-columns: 1fr 64px; gap: .75rem; align-items: center; padding: .8rem .75rem; }
+.sk-mini-held strong { display: block; font: 1.1rem/1.1 var(--font-koppen), serif; color: var(--kleur-primair); font-weight: 400; }
+.sk-mini-held p { font-size: .72rem; margin: .25rem 0 .45rem; opacity: .8; }
+.sk-mini-held em { display: inline-block; font-style: normal; font-size: .68rem; font-weight: 600; padding: .2rem .55rem; border-radius: 4px; background: var(--kleur-primair); color: var(--kleur-licht); }
+.sk-mini-bol { aspect-ratio: 1; border-radius: 50%; background: var(--kleur-accent); box-shadow: -14px 12px 0 -4px var(--kleur-secundair); }
+.sk-mini-band { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; padding: .6rem .75rem; background: var(--kleur-primair); }
+.sk-mini-band span { height: 26px; border-radius: 4px; background: color-mix(in srgb, var(--kleur-primair), var(--kleur-licht) 14%); border-top: 3px solid var(--kleur-accent); }
+.sk-mini-voet { height: 14px; background: var(--kleur-donker); }
+
+/* Letterkaart */
+.sk-fontdemo { display: grid; gap: .5rem; padding: 1.25rem 1.25rem 1rem; background: var(--kleur-zacht); color: var(--kleur-donker); }
+.sk-groot { font-size: 2.3rem; line-height: 1.05; color: var(--kleur-primair); overflow-wrap: anywhere; }
+.sk-sub { font-size: 1.15rem; line-height: 1.2; color: var(--kleur-secundair); }
+.sk-fontdemo p { font-size: .95rem; line-height: 1.55; max-width: 48ch; }
+.sk-abc { font-size: .78rem; opacity: .7; }
+
+/* Logokaart: op licht, omgekeerd op primair, en als tabblad-icoontje */
+.sk-tegel { display: grid; justify-items: center; align-content: center; gap: .75rem; min-height: 190px; padding: 1.5rem 1rem; background: var(--kleur-licht); text-align: center; }
+.sk-tegel svg { width: 84px; height: 84px; }
+.sk-woord { font-size: 1.6rem; line-height: 1.05; color: var(--kleur-primair); overflow-wrap: anywhere; }
+.sk-omgekeerd { display: flex; align-items: center; justify-content: space-between; gap: .75rem; padding: .6rem .9rem; background: var(--kleur-primair); color: var(--kleur-licht); }
+.sk-klein { display: flex; align-items: center; gap: .5rem; min-width: 0; }
+.sk-klein svg { flex: none; width: 30px; height: 30px; }
+.sk-klein span { font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sk-favicon { display: flex; align-items: center; gap: .4rem; font-size: .62rem; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+.sk-favicon i { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 6px; background: var(--kleur-licht); }
+.sk-favicon i svg { width: 20px; height: 20px; }
+.sk-favicon i b { color: var(--kleur-primair); font-size: .95rem; font-weight: 400; }
+.sk-groot-veld { max-width: 420px; margin-top: .9rem; }
+.sk-groot-veld span { font-size: .85rem; }
+
+/* Patroonkaart */
+.sk-patroonvlak { position: relative; height: 140px; background: var(--kleur-zacht); }
+.sk-patroonvlak::before { content: ''; position: absolute; inset: 0; background: var(--kleur-primair); opacity: .6; mask: var(--patroon); }
+.sk-patroon .sk-voet { padding-block: .6rem; }
+.sk-patroon .sk-code { color: color-mix(in srgb, var(--tekst) 60%, transparent); text-transform: none; letter-spacing: 0; font-weight: 400; }
+
+/* Vorm en wensen */
+.sk-vormen { display: grid; gap: 1.25rem; grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr)); }
+.sk-overzicht .sk-segment button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--knoptekst); }
+.sk-wensen { display: grid; gap: .6rem 1.5rem; grid-template-columns: repeat(auto-fill, minmax(min(230px, 100%), 1fr)); }
+.sk-wensen label { display: flex; align-items: center; gap: .6rem; cursor: pointer; }
+.sk-wensen input { width: 1.15rem; height: 1.15rem; accent-color: var(--accent); }
+
+/* Samenvatting */
+.sk-samenvatting { display: grid; gap: 1rem; max-width: 760px; }
+.sk-samenvatting > * { margin: 0 !important; }
+.sk-samenvatting pre { white-space: pre-wrap; font: .95rem/1.6 var(--font-tekst), system-ui, sans-serif; }
+.sk-samenvatting textarea { min-height: 7rem; resize: vertical; }
+.sk-melding { min-height: 1.5em; font-weight: 600; color: var(--accent); }
+
+/* script.js maakt van [tekst](adres){.knop} een link; deze knoppen zijn <button>, met dezelfde vorm */
+button.knop {
+    display: inline-block; padding: .45rem .9rem; border: 0; border-radius: 6px; cursor: pointer;
+    background: var(--accent); color: var(--knoptekst); font: 600 .95rem var(--font-tekst), system-ui, sans-serif;
+}
+@media (hover: hover) { button.knop:hover { filter: brightness(.92); } }
+
+@media print { .sk-open, .sk-paneel, .sk-sectiehart { display: none !important; } }
+@media (max-width: 800px) { .sk-sectiehart { top: -1.9rem; } }
